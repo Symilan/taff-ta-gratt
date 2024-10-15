@@ -23,7 +23,7 @@ class Home :
                         return States.FIND_THE_NOTE
                     if home.exit_button.is_selected() :
                         return States.KILL
-                elif event.type == TIMER_EVENT :
+                elif event.type == SECOND_EVENT :
                     home.fretboard.select_random()
 
             home.display()

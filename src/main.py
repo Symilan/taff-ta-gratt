@@ -6,7 +6,8 @@ from Constants import *
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Taff ta Gratt")
 state = States.HOME
-pygame.time.set_timer(TIMER_EVENT, 1000)
+pygame.time.set_timer(SECOND_EVENT, 1000)
+pygame.time.set_timer(TENTHSECOND_EVENT, 100)
 
 while state != States.KILL :
     if state == States.HOME :

@@ -44,7 +44,7 @@ class FretBoard :
         self.image = FRETBOARD_IMAGE
         self.rect = self.image.get_rect()
         self.rect.centerx = pygame.display.get_surface().get_rect().centerx
-        self.rect.top = 150
+        self.rect.top = 175
         self.strings = []
         self.show_notes = False
         for stringNumber in range(STRINGS) :

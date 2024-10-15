@@ -17,7 +17,10 @@ class Difficulty(Enum) :
     EASY = 1
     HARD = 2
 
-TIMER_EVENT = pygame.USEREVENT+1
+SECOND_EVENT = pygame.USEREVENT+1
+TENTHSECOND_EVENT = pygame.USEREVENT+2
+
+FIND_THE_NOTE_MAX_ROUNDS = 10
 
 SCREEN_HEIGHT = 768
 SCREEN_WIDTH = 1366
@@ -25,6 +28,7 @@ BROWN = (130, 20, 0)
 GREEN = (0, 150, 0)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+RED = (215, 0, 0)
 
 BUTTON_SCALING = 6
 FRETBOARD_SCALING = 10
@@ -51,3 +55,5 @@ EXIT_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/exit_button_hovere
 FRETBOARD_IMAGE = load_image("src/ressources/images/guitar_fretboard.png", FRETBOARD_SCALING)
 
 FRET_BUTTON_IMAGE = load_image("src/ressources/images/fret_button.png", FRETBOARD_SCALING)
+
+HIGHSCORES_FILE = "data/highscores.txt"
