@@ -4,7 +4,7 @@ from Constants import BASIC_SHIFT, FRETBOARD_SCALING
 
 class Text :
     pygame.font.init()
-    my_font = pygame.font.Font("ressources/PixelifySans-Regular.ttf", 50)
+    my_font = pygame.font.Font("src/ressources/PixelifySans-Regular.ttf", 50)
     def __init__(self, text="", coordinates=(0,0), color=(0,0,0)) :
         self.text = text
         self.coordinates = coordinates

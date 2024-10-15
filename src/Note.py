@@ -58,7 +58,7 @@ class Note :
                 if note_alias == self :
                     next_index = (i+1)%len(suiteNotes)
                     next_note = suiteNotes[next_index]
-                    return choice(next_note)
+                    return next_note[0]
 
 
     def __eq__(self, note: object) -> bool:

@@ -32,22 +32,22 @@ START_EXIT_BUTTON_HEIGHT = 500
 QUESTION_COORDINATES = (20,20)
 BASIC_SHIFT = 20
 
-EASY_BUTTON_IMAGE = load_image("ressources/images/easy_button.png", BUTTON_SCALING)
-EASY_BUTTON_HOVERED_IMAGE = load_image("ressources/images/easy_button_hovered.png", BUTTON_SCALING)
+EASY_BUTTON_IMAGE = load_image("src/ressources/images/easy_button.png", BUTTON_SCALING)
+EASY_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/easy_button_hovered.png", BUTTON_SCALING)
 
-HARD_BUTTON_IMAGE =load_image("ressources/images/hard_button.png", BUTTON_SCALING)
-HARD_BUTTON_HOVERED_IMAGE =load_image("ressources/images/hard_button_hovered.png", BUTTON_SCALING)
+HARD_BUTTON_IMAGE =load_image("src/ressources/images/hard_button.png", BUTTON_SCALING)
+HARD_BUTTON_HOVERED_IMAGE =load_image("src/ressources/images/hard_button_hovered.png", BUTTON_SCALING)
 
-VALIDATE_BUTTON_IMAGE = load_image("ressources/images/validate_button.png", BUTTON_SCALING)
-VALIDATE_BUTTON_GREYED_IMAGE = load_image("ressources/images/validate_button_greyed.png", BUTTON_SCALING)
-VALIDATE_BUTTON_HOVERED_IMAGE = load_image("ressources/images/validate_button_hovered.png", BUTTON_SCALING)
+VALIDATE_BUTTON_IMAGE = load_image("src/ressources/images/validate_button.png", BUTTON_SCALING)
+VALIDATE_BUTTON_GREYED_IMAGE = load_image("src/ressources/images/validate_button_greyed.png", BUTTON_SCALING)
+VALIDATE_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/validate_button_hovered.png", BUTTON_SCALING)
 
-START_BUTTON_IMAGE = load_image("ressources/images/start_button.png", BUTTON_SCALING)
-START_BUTTON_HOVERED_IMAGE = load_image("ressources/images/start_button_hovered.png", BUTTON_SCALING)
+START_BUTTON_IMAGE = load_image("src/ressources/images/start_button.png", BUTTON_SCALING)
+START_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/start_button_hovered.png", BUTTON_SCALING)
 
-EXIT_BUTTON_IMAGE = load_image("ressources/images/exit_button.png", BUTTON_SCALING)
-EXIT_BUTTON_HOVERED_IMAGE = load_image("ressources/images/exit_button_hovered.png", BUTTON_SCALING)
+EXIT_BUTTON_IMAGE = load_image("src/ressources/images/exit_button.png", BUTTON_SCALING)
+EXIT_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/exit_button_hovered.png", BUTTON_SCALING)
 
-FRETBOARD_IMAGE = load_image("ressources/images/guitar_fretboard.png", FRETBOARD_SCALING)
+FRETBOARD_IMAGE = load_image("src/ressources/images/guitar_fretboard.png", FRETBOARD_SCALING)
 
-FRET_BUTTON_IMAGE = load_image("ressources/images/fret_button.png", FRETBOARD_SCALING)
+FRET_BUTTON_IMAGE = load_image("src/ressources/images/fret_button.png", FRETBOARD_SCALING)
