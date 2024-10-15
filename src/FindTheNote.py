@@ -30,7 +30,7 @@ class FindTheNote :
         self.difficulty = difficulty
         self.timer = 0
         self.highscores = Highscores()
-        self.blinking_score_index = -1
+        self.highlighted_score_index = -1
 
     def start() :
         state, difficulty = DifficultyChoice.start(States.FIND_THE_NOTE)
@@ -137,10 +137,8 @@ class FindTheNote :
     
     def enter_game_over(self) :
         self.state = FindTheNoteState.GAME_OVER
-        print(self.won_rounds)
         score = Score(self.won_rounds, self.get_timer_total_seconds())
-        print(score)
-        self.blinking_score_index = self.highscores.add(score)
+        self.highlighted_score_index = self.highscores.add(score)
 
     def manage_game_over(self, event) :
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1 :
@@ -191,7 +189,7 @@ class FindTheNote :
         text_surfaces.append(Text("Highscores :").get_surface())
         for i in range(len(self.highscores.list)) :
             color = BLACK
-            if i == self.blinking_score_index :
+            if i == self.highlighted_score_index :
                 color = RED
             text_surfaces.append(Text(str(self.highscores.list[i]), color=color).get_surface())
         height = 0
