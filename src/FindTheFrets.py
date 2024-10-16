@@ -7,8 +7,8 @@ from Scores import Highscores, Score
 from utils import *
 from Text import Text
 
-class FindTheNote :
-    def __init__(self, max_round=FIND_THE_NOTE_MAX_ROUNDS, difficulty = Difficulty.EASY) :
+class FindTheFrets :
+    def __init__(self, max_round=FIND_THE_FRETS_MAX_ROUNDS, difficulty = Difficulty.EASY) :
         #Graphic
         self.fretBoard = FretBoard()
         #Button
@@ -22,7 +22,7 @@ class FindTheNote :
         self.text_game_over = Text("Bien joué ! Partie terminée.").center_on_rect(pygame.display.get_surface().get_rect())
         #Game
         self.note_to_find = None
-        self.state = FindTheNoteState.PLAY
+        self.state = InGameState.PLAY
         self.won_rounds = 0
         self.round_counter = 0
         self.max_round = max_round
@@ -33,19 +33,19 @@ class FindTheNote :
         self.highlighted_score_index = -1
 
     def start() :
-        state, difficulty = DifficultyChoice.start(States.FIND_THE_NOTE)
-        findTheNote = FindTheNote(difficulty=difficulty)
-        findTheNote.start_round()
-        while state == States.FIND_THE_NOTE :
+        state, difficulty = DifficultyChoice.start(States.FIND_THE_FRETS)
+        find_the_frets = FindTheFrets(difficulty=difficulty)
+        find_the_frets.start_round()
+        while state == States.FIND_THE_FRETS :
             for event in pygame.event.get() :
                 if event.type == pygame.QUIT :
                     return States.KILL
                 if event.type == pygame.KEYDOWN and event.key == 27 :
                     state = States.HOME
                 else :
-                    state = findTheNote.manage_event(event)
-            findTheNote.update()
-            findTheNote.display()
+                    state = find_the_frets.manage_event(event)
+            find_the_frets.update()
+            find_the_frets.display()
             pygame.display.update()
         return state
 
@@ -74,14 +74,14 @@ class FindTheNote :
 
     def handle_correct(self) :
         self.won_rounds += 1
-        self.state = FindTheNoteState.SUCCESS
+        self.state = InGameState.SUCCESS
         self.text_rule.text = [
             "Bravo ! Tu as trouvé tous les "+str(self.note_to_find)+" !",
             "Clique n'importe où pour continuer."
         ]
 
     def handle_incorrect(self) :
-        self.state = FindTheNoteState.FAILURE
+        self.state = InGameState.FAILURE
         self.text_rule.text = [
             "Raté ! Voici tous les "+str(self.note_to_find)+".", 
             "Clique n'importe où pour continuer."
@@ -95,19 +95,19 @@ class FindTheNote :
 
     def manage_event(self, event) :
         match self.state :
-            case FindTheNoteState.PLAY :
+            case InGameState.PLAY :
                 return self.manage_play(event)
-            case FindTheNoteState.SUCCESS :
+            case InGameState.SUCCESS :
                 return self.manage_success(event)
-            case FindTheNoteState.FAILURE :
+            case InGameState.FAILURE :
                 return self.manage_failure(event)
-            case FindTheNoteState.GAME_OVER :
+            case InGameState.GAME_OVER :
                 return self.manage_game_over(event)
 
     def manage_play(self, event) :
         if event.type == TENTHSECOND_EVENT :
             self.timer += 1
-            return States.FIND_THE_NOTE
+            return States.FIND_THE_FRETS
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1 :
             if self.validate_button.is_selected():
                 self.handle_validate()
@@ -117,7 +117,7 @@ class FindTheNote :
                         fret.is_selected = not fret.is_selected
         elif event.type == pygame.KEYDOWN and event.key == 32 :
             self.fretBoard.show_notes = not(self.fretBoard.show_notes)
-        return States.FIND_THE_NOTE
+        return States.FIND_THE_FRETS
 
     def manage_success(self, event) :
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1 :
@@ -125,7 +125,7 @@ class FindTheNote :
                 self.enter_game_over()
             else :
                 self.start_round()
-        return States.FIND_THE_NOTE
+        return States.FIND_THE_FRETS
 
     def manage_failure(self, event) :
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1 :
@@ -133,36 +133,36 @@ class FindTheNote :
                 self.enter_game_over()
             else :
                 self.start_round()
-        return States.FIND_THE_NOTE
+        return States.FIND_THE_FRETS
     
     def enter_game_over(self) :
-        self.state = FindTheNoteState.GAME_OVER
+        self.state = InGameState.GAME_OVER
         score = Score(self.won_rounds, self.get_timer_total_seconds())
         self.highlighted_score_index = self.highscores.add(score)
 
     def manage_game_over(self, event) :
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1 :
             return States.HOME
-        return States.FIND_THE_NOTE
+        return States.FIND_THE_FRETS
 
     def start_round(self) :
         self.choose_note()
         self.round_counter += 1
         self.passed_notes.append(self.note_to_find)
-        self.state = FindTheNoteState.PLAY
+        self.state = InGameState.PLAY
         self.text_rule.text = "Coche tous les "+str(self.note_to_find)+"."
         self.fretBoard.empty()
 
     def display(self) :
         pygame.display.get_surface().fill(GREEN)
         match self.state :
-            case FindTheNoteState.PLAY :
+            case InGameState.PLAY :
                 self.display_play()
-            case FindTheNoteState.SUCCESS :
+            case InGameState.SUCCESS :
                 self.display_success()
-            case FindTheNoteState.FAILURE :
+            case InGameState.FAILURE :
                 self.display_failure()
-            case FindTheNoteState.GAME_OVER :
+            case InGameState.GAME_OVER :
                 self.display_game_over()
         text_round = self.text_round.stick_to_right().stick_to_top().write()
         text_round_bottom = text_round.get_rect().bottom

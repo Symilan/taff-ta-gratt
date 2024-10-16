@@ -1,9 +1,12 @@
 import shelve
+import os
 from Constants import *
 
 class Highscores :
     def __init__(self):
         self.list = []
+        if not(os.path.exists("data")) :
+            os.mkdir("data")
         reader = shelve.open(HIGHSCORES_FILE)
         if "highscores" in reader :
             self.list = reader["highscores"]

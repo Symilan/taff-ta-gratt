@@ -2,16 +2,16 @@ from enum import Enum
 from utils import load_image
 import pygame
 
-class States(Enum) :
-    KILL = 1
-    HOME = 2
-    FIND_THE_NOTE = 3
-
-class FindTheNoteState(Enum) :
+class InGameState(Enum) :
     PLAY = 1
     SUCCESS = 2
     FAILURE = 3
     GAME_OVER = 4
+class States(Enum) :
+    KILL = 1
+    HOME = 2
+    FIND_THE_FRETS = 3
+    FIND_THE_NOTE = 4
 
 class Difficulty(Enum) :
     EASY = 1
@@ -20,7 +20,7 @@ class Difficulty(Enum) :
 SECOND_EVENT = pygame.USEREVENT+1
 TENTHSECOND_EVENT = pygame.USEREVENT+2
 
-FIND_THE_NOTE_MAX_ROUNDS = 10
+FIND_THE_FRETS_MAX_ROUNDS = 10
 
 SCREEN_HEIGHT = 768
 SCREEN_WIDTH = 1366

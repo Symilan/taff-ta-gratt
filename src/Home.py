@@ -20,7 +20,7 @@ class Home :
                     return States.KILL
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1 :
                     if home.start_button.is_selected() :
-                        return States.FIND_THE_NOTE
+                        return States.FIND_THE_FRETS
                     if home.exit_button.is_selected() :
                         return States.KILL
                 elif event.type == SECOND_EVENT :
