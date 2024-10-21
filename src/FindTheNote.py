@@ -5,7 +5,7 @@ from Button import Button
 
 
 class FindTheNote :
-    def __init__(self) :
+    def __init__(self, game_difficulty = Difficulty.EASY) :
         #Game
         self.game_timer = 0
         self.game_state = InGameState.PLAY
@@ -13,9 +13,10 @@ class FindTheNote :
         self.won_rounds = 0
         self.round = 0
         self.max_rounds = 10
+        self.game_difficulty = game_difficulty
 
         #Graphics
-        self.fretboard = FretBoard()
+        self.fretboard = FretBoard(top=100)
         self.text_rule = Text("Quelle est cette note ?")
         self.text_success = Text("Bien joué !")
         self.text_failure = Text("Raté...")
@@ -28,7 +29,7 @@ class FindTheNote :
         self.mi_button = Button(MI_BUTTON_IMAGE, MI_BUTTON_HOVERED_IMAGE, Note(NotesFrancais.Mi))
         self.fa_button = Button(FA_BUTTON_IMAGE, FA_BUTTON_HOVERED_IMAGE, Note(NotesFrancais.Fa))
         #self.fad_button = Button(FAD_BUTTON_IMAGE, FAD_BUTTON_HOVERED_IMAGE, Note(NotesFrancais.Fa, Modifiers.Diese))
-        self.sol_button = Button(SOL_BUTTON_IMAGE, SOL_BUTTON_HOVERED_IMAGE), Note(NotesFrancais.Sol)
+        self.sol_button = Button(SOL_BUTTON_IMAGE, SOL_BUTTON_HOVERED_IMAGE, Note(NotesFrancais.Sol))
         #self.sold_button = Button(SOLD_BUTTON_IMAGE, SOLD_BUTTON_HOVERED_IMAGE, Note(NotesFrancais.Sol, Modifiers.Diese))
         self.la_button = Button(LA_BUTTON_IMAGE, LA_BUTTON_HOVERED_IMAGE, Note(NotesFrancais.La))
         #self.lad_button = Button(LAD_BUTTON_IMAGE, LAD_BUTTON_HOVERED_IMAGE, Note(NotesFrancais.La, Modifiers.Diese))
@@ -46,10 +47,13 @@ class FindTheNote :
                     return States.HOME
                 else :
                     state = game_instance.manage_event(event)
+            game_instance.display()
+            pygame.display.update()
 
     def start_round(self) :
-        self.note_to_find = self.fretboard.select_random()
-        round += 1
+        allow_modifiers = self.game_difficulty==Difficulty.HARD
+        self.note_to_find = self.fretboard.select_random(allow_modifiers)
+        self.round += 1
 
     def guess(self, note) :
         if note == self.note_to_find :
@@ -116,13 +120,46 @@ class FindTheNote :
                 self.display_game_over()
 
     def display_play(self) :
-        self.fretboard.draw()
+        self.text_rule.write()
+        self.fretboard.draw(write_question_mark=True)
+        self.draw_buttons()
     def display_success(self) :
+        self.text_success.write()
         self.fretboard.draw(write_selected_notes=True)
     def display_failure(self) :
+        self.text_failure.write()
         self.fretboard.draw(write_selected_notes=True)
     def display_game_over(self) :
         pass
+
+    def draw_buttons(self, hard_mode = False, spacing = BASIC_SHIFT) :
+        height, width = -spacing, -spacing #Pour compenser le fait qu'on ne veuille pas ajouter d'espace inter-bouton à la première itération
+        if not(hard_mode) :
+            button_list = [[self.do_button, self.re_button, self.mi_button, self.fa_button],[self.sol_button, self.la_button, self.si_button]]
+            line_widths = []
+            for line in button_list :
+                height += spacing+line[0].rect.height
+                for button in line :
+                    width += spacing+button.rect.width
+                line_widths.append(width)
+                width = -spacing
+            for line_width in line_widths :
+                width = max(line_width, width)
+            total_rect = pygame.Rect(0, 0, width, height)
+            total_rect.centerx = pygame.display.get_surface().get_rect().centerx
+            total_rect.bottom = pygame.display.get_surface().get_rect().bottom - BASIC_SHIFT
+            (x,y) = total_rect.topleft
+            for line_index in range(len(button_list)) :
+                line = button_list[line_index]
+                line_rect = pygame.Rect(x, y, line_widths[line_index], line[0].rect.height)
+                line_rect.centerx = pygame.display.get_surface().get_rect().centerx
+                x = line_rect.left
+                for button in line :
+                    button.rect.topleft = (x,y)
+                    x += spacing + button.rect.width
+                    button.draw()
+                x = total_rect.left
+                y += spacing + button.rect.height
 
 DO_BUTTON_IMAGE = load_image("src/ressources/images/do_button.png", BUTTON_SCALING)
 DO_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/do_button_hovered.png", BUTTON_SCALING)

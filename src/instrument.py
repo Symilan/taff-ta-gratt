@@ -26,25 +26,28 @@ class Fret :
     def is_hovered(self) :
         return self.rect.collidepoint(pygame.mouse.get_pos())
     
-    def draw(self, draw_hovered=False, write_notes=False, write_selected_note=False) :
+    def draw(self, draw_hovered=False, write_notes=False, write_selected_note=False, write_question_mark = False) :
         if (self.is_hovered() and draw_hovered) or self.is_selected :
             pygame.display.get_surface().blit(FRET_BUTTON_IMAGE, self.rect.topleft)
             if write_selected_note :
                 Text(str(self.note), color=WHITE).center_on_rect(self.rect).write()
         if write_notes :
             Text(str(self.note), color=WHITE).center_on_rect(self.rect).write()
+        elif write_question_mark and self.is_selected :
+            Text("?", color=WHITE).center_on_rect(self.rect).write()
+            
 
 class String :
     def __init__(self) :
         self.frets = []
         
 class FretBoard :
-    def __init__(self, startingFret = 0) :
+    def __init__(self, startingFret = 0, top = 175) :
         self.set_starting_fret = startingFret
         self.image = FRETBOARD_5_IMAGE
         self.rect = self.image.get_rect()
         self.rect.centerx = pygame.display.get_surface().get_rect().centerx
-        self.rect.top = 175
+        self.rect.top = top
         self.strings = []
         self.show_notes = False
         for stringNumber in range(STRINGS) :
@@ -62,10 +65,12 @@ class FretBoard :
                 note_to_add = note_to_add.get_next()
             self.strings.append(string)
     
-    def select_random(self) :
+    def select_random(self, allow_modifiers = True) :
         self.empty()
         random_fret = choice(choice(self.strings).frets)
         random_fret.is_selected = True
+        if not(allow_modifiers) and random_fret.note.modifier != Modifiers.Empty:
+            return self.select_random(allow_modifiers)
         return random_fret
 
     def set_starting_fret(self, startingFret) :
@@ -76,14 +81,15 @@ class FretBoard :
             set_frets(string, startingFret)
         return self
 
-    def draw(self, draw_hovered_frets=False, write_selected_notes=False) :
+    def draw(self, draw_hovered_frets=False, write_selected_notes=False, write_question_mark = False) :
         pygame.display.get_surface().blit(self.image, self.rect.topleft)
         for string in self.strings :
             for fret in string.frets :
                 fret.draw(
-                    draw_hovered=draw_hovered_frets, 
-                    write_notes=self.show_notes,
-                    write_selected_note=write_selected_notes
+                    draw_hovered = draw_hovered_frets, 
+                    write_notes = self.show_notes,
+                    write_selected_note = write_selected_notes,
+                    write_question_mark = write_question_mark
                     )
 
     def empty(self) -> object:
