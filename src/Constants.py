@@ -52,7 +52,14 @@ START_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/start_button_hove
 EXIT_BUTTON_IMAGE = load_image("src/ressources/images/exit_button.png", BUTTON_SCALING)
 EXIT_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/exit_button_hovered.png", BUTTON_SCALING)
 
-FRETBOARD_IMAGE = load_image("src/ressources/images/guitar_fretboard.png", FRETBOARD_SCALING)
+FIND_THE_FRETS_BUTTON_IMAGE = load_image("src/ressources/images/find_the_frets_button.png", BUTTON_SCALING)
+FIND_THE_FRETS_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/find_the_frets_button_hovered.png", BUTTON_SCALING)
+
+FIND_THE_NOTE_BUTTON_IMAGE = load_image("src/ressources/images/find_the_note_button.png", BUTTON_SCALING)
+FIND_THE_NOTE_BUTTON_HOVERED_IMAGE = load_image("src/ressources/images/find_the_note_button_hovered.png", BUTTON_SCALING)
+
+FRETBOARD_5_IMAGE = load_image("src/ressources/images/guitar_fretboard_5.png", FRETBOARD_SCALING)
+FRETBOARD_12_IMAGE = load_image("src/ressources/images/guitar_fretboard_12.png", FRETBOARD_SCALING)
 
 FRET_BUTTON_IMAGE = load_image("src/ressources/images/fret_button.png", FRETBOARD_SCALING)
 

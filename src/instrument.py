@@ -41,7 +41,7 @@ class String :
 class FretBoard :
     def __init__(self, startingFret = 0) :
         self.set_starting_fret = startingFret
-        self.image = FRETBOARD_IMAGE
+        self.image = FRETBOARD_5_IMAGE
         self.rect = self.image.get_rect()
         self.rect.centerx = pygame.display.get_surface().get_rect().centerx
         self.rect.top = 175
@@ -66,7 +66,7 @@ class FretBoard :
         self.empty()
         random_fret = choice(choice(self.strings).frets)
         random_fret.is_selected = True
-        return self
+        return random_fret
 
     def set_starting_fret(self, startingFret) :
         self.startingFret = startingFret

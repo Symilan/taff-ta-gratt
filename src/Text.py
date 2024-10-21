@@ -9,12 +9,6 @@ class Text :
         self.text = text
         self.coordinates = coordinates
         self.color = color
-    
-    def set_coordinates(self, coordinates) :
-        if isinstance(coordinates, pygame.Surface) :
-            print("Je suis une Surface, pas une coordonée")
-            print("Coord : "+str(self.coordinates)+" Surface : "+str(coordinates))
-        self.coordinates = coordinates
 
     def get_surface(self) :
         return Text.my_font.render(self.text, False, self.color)
@@ -40,33 +34,33 @@ class Text :
         text_rect = self.get_rect()
         text_rect.center = rect.center
 
-        #Je ne sais pas pourquoi il faut rectifier comme ça
+        #Je ne sais pas pourquoi il faut rectifier comme ça -> PCQ mon image de bouton de fret a un vide à gauche ! Il faut la refaire et centrer convenablement
         text_rect.top -= int(FRETBOARD_SCALING/2)-1
         text_rect.left += int(FRETBOARD_SCALING/2)
 
-        self.set_coordinates(text_rect.topleft)
+        self.coordinates = text_rect.topleft
         return self
 
     def stick_to_top(self, shift=BASIC_SHIFT) :
         rect = self.get_rect()
         rect.top = pygame.display.get_surface().get_rect().top+shift
-        self.set_coordinates(rect.topleft)
+        self.coordinates = rect.topleft
         return self
     
     def stick_to_right(self, shift=BASIC_SHIFT) :
         rect = self.get_rect()
         rect.right = pygame.display.get_surface().get_rect().right-shift
-        self.set_coordinates(rect.topleft)
+        self.coordinates = rect.topleft
         return self
     
     def stick_to_left(self, shift=BASIC_SHIFT) :
         rect = self.get_rect()
         rect.left = shift
-        self.set_coordinates(rect.topleft)
+        self.coordinates = rect.topleft
         return self
     
     def centerx(self, shift = 0) :
         rect = self.get_rect()
         rect.centerx = pygame.display.get_surface().get_rect().centerx
-        self.set_coordinates(rect.topleft)
+        self.coordinates = rect.topleft
         return self

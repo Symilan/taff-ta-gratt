@@ -1,7 +1,7 @@
 import pygame
 from Home import Home
 from FindTheFrets import FindTheFrets
-#from FindTheNote import FindTheNote
+from FindTheNote import FindTheNote
 from Constants import *
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -15,7 +15,7 @@ while state != States.KILL :
         state = Home.start()
     if state == States.FIND_THE_FRETS :
         state = FindTheFrets.start()
-#    if state == States.FIND_THE_NOTE :
-#        state = FindTheNote.start()
+    if state == States.FIND_THE_NOTE :
+        state = FindTheNote.start()
 
 pygame.quit()

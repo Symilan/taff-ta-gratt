@@ -1,7 +1,7 @@
 import pygame
 from Constants import *
 from DifficultyChoice import DifficultyChoice
-from FretBoard import *
+import instrument
 from Button import Button
 from Scores import Highscores, Score
 from utils import *
@@ -10,7 +10,7 @@ from Text import Text
 class FindTheFrets :
     def __init__(self, max_round=FIND_THE_FRETS_MAX_ROUNDS, difficulty = Difficulty.EASY) :
         #Graphic
-        self.fretBoard = FretBoard()
+        self.fretBoard = instrument.FretBoard()
         #Button
         self.validate_button = Button(VALIDATE_BUTTON_IMAGE, VALIDATE_BUTTON_HOVERED_IMAGE, image_greyed=VALIDATE_BUTTON_GREYED_IMAGE)
         self.validate_button.center().stick_to_bottom().shift(x=-20)
@@ -68,9 +68,9 @@ class FindTheFrets :
         previous_note = self.note_to_find
         while previous_note==self.note_to_find :
             if self.difficulty == Difficulty.EASY :
-                self.note_to_find = Note.random_easy()
+                self.note_to_find = instrument.Note.random_easy()
             else :
-                self.note_to_find = Note.random()
+                self.note_to_find = instrument.Note.random()
 
     def handle_correct(self) :
         self.won_rounds += 1

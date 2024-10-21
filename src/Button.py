@@ -1,4 +1,5 @@
 import pygame
+from Constants import *
 
 class Button :
     def __init__(self, image, image_hovered, image_greyed = None, coords = (0, 0)) :
@@ -20,6 +21,14 @@ class Button :
 
     def stick_to_bottom(self) :
         self.rect.bottom = pygame.display.get_surface().get_rect().bottom
+        return self
+    
+    def stick_to_left(self, shift = BASIC_SHIFT) :
+        self.rect.left = pygame.display.get_surface().get_rect().left + shift
+        return self
+
+    def stick_to_right(self, shift = BASIC_SHIFT) :
+        self.rect.right = pygame.display.get_surface().get_rect().right - shift
         return self
 
     def exit_button(image, hovered_image) :
