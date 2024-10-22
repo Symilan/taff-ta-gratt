@@ -3,18 +3,19 @@ import os
 from Constants import *
 
 class Highscores :
-    def __init__(self):
+    def __init__(self, key):
+        self.key = key.name
         self.list = []
         if not(os.path.exists("data")) :
             os.mkdir("data")
         reader = shelve.open(HIGHSCORES_FILE)
-        if "highscores" in reader :
-            self.list = reader["highscores"]
+        if self.key in reader :
+            self.list = reader[self.key]
         reader.close()
 
     def save(self) :
         saver = shelve.open(HIGHSCORES_FILE)
-        saver["highscores"] = self.list
+        saver[self.key] = self.list
         saver.close()
 
     #Ajoute le score aux highscores si nécessaire et renvoie l'indice auquel il a été inséré (-1 si non inséré)
